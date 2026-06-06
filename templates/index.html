@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quanta &mdash; AP Physics Study Companion</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+
+  <div class="grain"></div>
+
+  <header class="site-header">
+    <div class="brand">
+      <div class="mark">Q</div>
+      <div class="brand-text">
+        <h1>Quanta</h1>
+        <p>AP Physics Guide</p>
+      </div>
+    </div>
+    <div class="header-meta">
+      <span class="badge">DSH Hacks V1 &middot; AI &times; STEM Education</span>
+    </div>
+  </header>
+
+  {% if not has_key %}
+  <div class="keywarn">
+    No <code>ANTHROPIC_API_KEY</code> detected. Copy <code>.env.example</code> to <code>.env</code>,
+    add your key, and restart the server to enable the AI features.
+  </div>
+  {% endif %}
+
+  <main>
+    <p class="intro">
+      A study companion for <strong>AP Physics 1, AP Physics 2, AP Physics C: Mechanics,</strong>
+      and <strong>AP Physics C: E&amp;M</strong>. Learn concepts in depth, get any problem worked
+      step by step, and drill with practice quizzes built for the 2024&ndash;25 exam.
+    </p>
+
+    <nav class="tabs" id="tabs">
+      <button class="tab active" data-tab="learn">Learn</button>
+      <button class="tab" data-tab="solve">Solve</button>
+      <button class="tab" data-tab="quiz">Quiz</button>
+      <button class="tab" data-tab="formulas">Formulas</button>
+    </nav>
+
+    <!-- ============================ LEARN ============================ -->
+    <section class="panel active" id="panel-learn">
+      <div class="panel-head">
+        <h2>Concept Explorer</h2>
+        <p>Pick a topic for a deep, exam-focused explanation, intuition, equations,
+           a worked example, and the mistakes to avoid.</p>
+      </div>
+
+      <div class="controls">
+        <label>Course
+          <select id="learn-course"></select>
+        </label>
+        <label>Unit
+          <select id="learn-unit"></select>
+        </label>
+      </div>
+
+      <div class="topic-chips" id="learn-topics"></div>
+
+      <div class="topic-entry">
+        <input type="text" id="learn-topic" placeholder="Choose a topic above, or type your own question or topic" />
+        <button class="primary" id="learn-go">Explain it</button>
+      </div>
+
+      <div class="output" id="learn-output">
+        <div class="placeholder">Your explanation will appear here.</div>
+      </div>
+    </section>
+
+    <!-- ============================ SOLVE ============================ -->
+    <section class="panel" id="panel-solve">
+      <div class="panel-head">
+        <h2>Problem Tutor</h2>
+        <p>Paste any physics problem. You get a full worked solution that teaches the
+           method - strategy, step-by-step reasoning, a sanity check, and pitfalls.</p>
+      </div>
+
+      <div class="controls">
+        <label>Course
+          <select id="solve-course"></select>
+        </label>
+      </div>
+
+      <textarea id="solve-problem" rows="6"
+        placeholder="e.g. A 2.0 kg block slides down a frictionless 30 degree incline from rest. How fast is it moving after sliding 4.0 m along the incline?"></textarea>
+      <div class="topic-entry right">
+        <button class="primary" id="solve-go">Work it out</button>
+      </div>
+
+      <div class="output" id="solve-output">
+        <div class="placeholder">Your worked solution will appear here.</div>
+      </div>
+    </section>
+
+    <!-- ============================ QUIZ ============================ -->
+    <section class="panel" id="panel-quiz">
+      <div class="panel-head">
+        <h2>Practice Quiz</h2>
+        <p>Generate a fresh set of AP-style questions for any unit. Answer them, get
+           instant explanations, and track your scores over time.</p>
+      </div>
+
+      <div class="controls">
+        <label>Course
+          <select id="quiz-course"></select>
+        </label>
+        <label>Unit
+          <select id="quiz-unit"></select>
+        </label>
+        <label>Difficulty
+          <select id="quiz-difficulty"></select>
+        </label>
+        <label>Questions
+          <select id="quiz-count">
+            <option>3</option><option selected>5</option><option>8</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="quiz-options">
+        <label class="check">
+          <input type="checkbox" id="quiz-frq" />
+          Add one free-response question (AI-graded)
+        </label>
+        <button class="primary" id="quiz-go">Generate quiz</button>
+      </div>
+
+      <div class="output" id="quiz-output">
+        <div class="placeholder">Your quiz will appear here.</div>
+      </div>
+
+      <div class="studylog" id="studylog"></div>
+    </section>
+
+    <!-- ============================ FORMULAS ============================ -->
+    <section class="panel" id="panel-formulas">
+      <div class="panel-head">
+        <h2>Formula Reference</h2>
+        <p>The core equations for each course, grouped by topic, with a note on
+           what each one is actually for.</p>
+      </div>
+
+      <div class="controls">
+        <label>Course
+          <select id="formula-course"></select>
+        </label>
+      </div>
+
+      <div class="formula-grid" id="formula-grid"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Quanta &mdash; built for DSH Hacks V1. Explanations, solutions, and quizzes are
+       generated by AI and should be checked against your textbook and the official
+       AP Course and Exam Description.</p>
+  </footer>
+
+  <script id="site-data" type="application/json">{{ site_data | safe }}</script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

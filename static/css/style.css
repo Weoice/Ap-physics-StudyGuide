@@ -1,0 +1,438 @@
+/* ===========================================================
+   Quanta - AP Physics Study Companion
+   Warm editorial theme: parchment, ink, terracotta
+   =========================================================== */
+
+:root {
+  --bg:          #f4ede0;
+  --bg-2:        #ece2d2;
+  --surface:     #fffdf8;
+  --surface-2:   #faf4e8;
+  --ink:         #2b2620;
+  --ink-soft:    #6f6657;
+  --ink-faint:   #9a8f7d;
+  --accent:      #bf5a36;
+  --accent-deep: #9c4527;
+  --accent-soft: #ecdcc9;
+  --line:        #ddd0bc;
+  --line-soft:   #e8ddc9;
+  --correct:     #4a7c59;
+  --correct-bg:  #e6efe4;
+  --wrong:       #b5443a;
+  --wrong-bg:    #f3e0dd;
+  --shadow:      0 1px 2px rgba(43,38,32,.04), 0 8px 28px rgba(43,38,32,.07);
+  --radius:      14px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "DM Sans", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* faint paper grain */
+.grain {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  opacity: .5;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(191,90,54,.05), transparent 40%),
+    radial-gradient(circle at 85% 70%, rgba(156,69,39,.045), transparent 45%);
+}
+
+main, .site-header, .site-footer, .keywarn {
+  position: relative; z-index: 1;
+}
+
+/* ----------------------------- header ----------------------------- */
+.site-header {
+  max-width: 940px; margin: 0 auto;
+  padding: 38px 28px 14px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; flex-wrap: wrap;
+}
+.brand { display: flex; align-items: center; gap: 16px; }
+.mark {
+  width: 54px; height: 54px; flex-shrink: 0;
+  background: var(--accent); color: var(--surface);
+  font-family: "DM Serif Display", serif; font-size: 32px;
+  display: grid; place-items: center;
+  border-radius: 13px;
+  box-shadow: 0 6px 18px rgba(191,90,54,.32);
+}
+.brand-text h1 {
+  font-family: "DM Serif Display", serif;
+  font-size: 34px; font-weight: 400; letter-spacing: -.01em;
+  line-height: 1;
+}
+.brand-text p {
+  font-size: 13.5px; color: var(--ink-soft);
+  font-style: italic; margin-top: 4px;
+}
+.badge {
+  font-size: 11.5px; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--accent-deep); font-weight: 600;
+  background: var(--accent-soft);
+  border: 1px solid var(--line);
+  padding: 7px 13px; border-radius: 999px;
+}
+
+.keywarn {
+  max-width: 940px; margin: 14px auto 0;
+  padding: 12px 18px;
+  background: var(--wrong-bg); border: 1px solid #e3b6b0;
+  border-radius: 10px; font-size: 13.5px; color: #7c2c25;
+}
+.keywarn code {
+  font-family: "DM Mono", monospace; font-size: 12.5px;
+  background: rgba(0,0,0,.05); padding: 1px 5px; border-radius: 4px;
+}
+
+/* ----------------------------- layout ----------------------------- */
+main {
+  max-width: 940px; margin: 0 auto;
+  padding: 22px 28px 60px;
+}
+.intro {
+  font-size: 15.5px; color: var(--ink-soft);
+  max-width: 680px; margin-bottom: 26px;
+}
+.intro strong { color: var(--ink); font-weight: 600; }
+
+/* ----------------------------- tabs ----------------------------- */
+.tabs {
+  display: flex; gap: 6px;
+  background: var(--bg-2);
+  padding: 6px; border-radius: 12px;
+  border: 1px solid var(--line-soft);
+  margin-bottom: 26px;
+}
+.tab {
+  flex: 1; padding: 10px 14px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 14.5px; font-weight: 600;
+  color: var(--ink-soft); background: transparent;
+  border: none; border-radius: 8px; cursor: pointer;
+  transition: all .18s ease;
+}
+.tab:hover { color: var(--ink); }
+.tab.active {
+  background: var(--surface); color: var(--accent-deep);
+  box-shadow: 0 1px 3px rgba(43,38,32,.1);
+}
+
+/* ----------------------------- panels ----------------------------- */
+.panel { display: none; animation: rise .3s ease; }
+.panel.active { display: block; }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.panel-head { margin-bottom: 22px; }
+.panel-head h2 {
+  font-family: "DM Serif Display", serif;
+  font-size: 27px; font-weight: 400; letter-spacing: -.01em;
+}
+.panel-head p {
+  font-size: 14.5px; color: var(--ink-soft);
+  max-width: 620px; margin-top: 6px;
+}
+
+/* ----------------------------- controls ----------------------------- */
+.controls {
+  display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 16px;
+}
+.controls label {
+  display: flex; flex-direction: column; gap: 6px;
+  font-size: 12px; font-weight: 600; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--ink-faint);
+  flex: 1; min-width: 150px;
+}
+select, input[type="text"], textarea {
+  font-family: "DM Sans", sans-serif;
+  font-size: 14.5px; color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 9px; padding: 10px 12px;
+  width: 100%;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+select { cursor: pointer; }
+select:focus, input[type="text"]:focus, textarea:focus {
+  outline: none; border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(191,90,54,.13);
+}
+textarea { resize: vertical; line-height: 1.6; }
+
+/* topic chips */
+.topic-chips {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px;
+}
+.chip {
+  font-size: 13px; font-weight: 500;
+  background: var(--surface-2); color: var(--ink-soft);
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 6px 13px; cursor: pointer;
+  transition: all .15s ease;
+}
+.chip:hover { border-color: var(--accent); color: var(--accent-deep); }
+.chip.active {
+  background: var(--accent); color: var(--surface);
+  border-color: var(--accent);
+}
+
+.topic-entry { display: flex; gap: 10px; align-items: stretch; }
+.topic-entry.right { justify-content: flex-end; margin-top: 14px; }
+.topic-entry input { flex: 1; }
+
+/* ----------------------------- buttons ----------------------------- */
+.primary {
+  font-family: "DM Sans", sans-serif;
+  font-size: 14.5px; font-weight: 600;
+  color: var(--surface); background: var(--accent);
+  border: none; border-radius: 9px;
+  padding: 11px 22px; cursor: pointer; white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(191,90,54,.28);
+  transition: transform .12s ease, background .15s ease, box-shadow .15s ease;
+}
+.primary:hover { background: var(--accent-deep); transform: translateY(-1px); }
+.primary:active { transform: translateY(0); }
+.primary:disabled {
+  background: var(--ink-faint); box-shadow: none;
+  cursor: not-allowed; transform: none;
+}
+
+.quiz-options {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap; margin: 4px 0 8px;
+}
+.check {
+  display: flex; align-items: center; gap: 9px;
+  font-size: 14px; color: var(--ink-soft); cursor: pointer;
+}
+.check input { width: 17px; height: 17px; accent-color: var(--accent); cursor: pointer; }
+
+/* ----------------------------- output ----------------------------- */
+.output {
+  margin-top: 22px;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px 30px;
+}
+.placeholder {
+  color: var(--ink-faint); font-style: italic; font-size: 14.5px;
+  text-align: center; padding: 20px 0;
+}
+
+/* loading */
+.loading {
+  display: flex; align-items: center; gap: 12px;
+  color: var(--ink-soft); font-size: 14.5px; padding: 12px 0;
+}
+.spinner {
+  width: 20px; height: 20px; flex-shrink: 0;
+  border: 2.5px solid var(--accent-soft);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.errorbox {
+  background: var(--wrong-bg); border: 1px solid #e3b6b0;
+  color: #7c2c25; border-radius: 9px; padding: 12px 16px;
+  font-size: 14px;
+}
+
+/* ---------------- rendered markdown (explanations / solutions) -------- */
+.md h2 {
+  font-family: "DM Serif Display", serif;
+  font-size: 20px; font-weight: 400; color: var(--accent-deep);
+  margin: 26px 0 10px; padding-bottom: 6px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.md h2:first-child { margin-top: 0; }
+.md h3 {
+  font-size: 15.5px; font-weight: 700; color: var(--ink);
+  margin: 18px 0 6px;
+}
+.md p { margin: 10px 0; font-size: 15px; }
+.md ul, .md ol { margin: 10px 0 10px 22px; }
+.md li { margin: 5px 0; font-size: 15px; }
+.md strong { font-weight: 700; color: var(--ink); }
+.md code {
+  font-family: "DM Mono", monospace; font-size: 13px;
+  background: var(--surface-2); border: 1px solid var(--line-soft);
+  padding: 1px 6px; border-radius: 5px;
+}
+.md pre {
+  background: var(--surface-2); border: 1px solid var(--line-soft);
+  border-radius: 9px; padding: 14px; overflow-x: auto; margin: 12px 0;
+}
+.md pre code { background: none; border: none; padding: 0; }
+.md hr { border: none; border-top: 1px solid var(--line-soft); margin: 20px 0; }
+.md .katex-display {
+  margin: 14px 0; padding: 6px 0;
+  overflow-x: auto; overflow-y: hidden;
+}
+
+/* ----------------------------- quiz ----------------------------- */
+.quiz-q {
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px 24px; margin-bottom: 16px;
+}
+.quiz-q .qnum {
+  font-size: 11.5px; font-weight: 700; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 8px;
+}
+.quiz-q .qtext { font-size: 15.5px; margin-bottom: 14px; }
+.choices { display: flex; flex-direction: column; gap: 8px; }
+.choice {
+  text-align: left; font-family: "DM Sans", sans-serif;
+  font-size: 14.5px; color: var(--ink);
+  background: var(--surface-2);
+  border: 1px solid var(--line); border-radius: 9px;
+  padding: 11px 14px; cursor: pointer;
+  display: flex; gap: 10px; align-items: baseline;
+  transition: border-color .14s ease, background .14s ease;
+}
+.choice:hover:not(.locked) { border-color: var(--accent); }
+.choice .letter {
+  font-weight: 700; color: var(--accent-deep);
+  font-family: "DM Mono", monospace; font-size: 13px;
+}
+.choice.locked { cursor: default; }
+.choice.correct {
+  background: var(--correct-bg); border-color: var(--correct);
+}
+.choice.correct .letter { color: var(--correct); }
+.choice.wrong {
+  background: var(--wrong-bg); border-color: var(--wrong);
+}
+.choice.wrong .letter { color: var(--wrong); }
+
+.explain {
+  margin-top: 13px; padding: 13px 15px;
+  background: var(--surface-2);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  font-size: 14px; color: var(--ink-soft);
+}
+.explain strong { color: var(--ink); }
+.explain.good { border-left-color: var(--correct); }
+.explain.bad  { border-left-color: var(--wrong); }
+
+.frq-q textarea { margin: 4px 0 12px; }
+.rubric {
+  margin-top: 14px; padding: 14px 16px;
+  background: var(--surface-2); border: 1px dashed var(--line);
+  border-radius: 9px;
+}
+.rubric .rubric-label {
+  font-size: 11.5px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px;
+}
+
+.scorecard {
+  background: var(--accent); color: var(--surface);
+  border-radius: var(--radius); padding: 22px 26px;
+  margin-bottom: 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 18px; flex-wrap: wrap;
+  box-shadow: 0 8px 24px rgba(191,90,54,.28);
+}
+.scorecard .big {
+  font-family: "DM Serif Display", serif; font-size: 40px; line-height: 1;
+}
+.scorecard .label { font-size: 14px; opacity: .92; }
+
+/* ----------------------------- study log ----------------------------- */
+.studylog { margin-top: 26px; }
+.studylog h3 {
+  font-family: "DM Serif Display", serif;
+  font-size: 19px; font-weight: 400; margin-bottom: 4px;
+}
+.studylog .sub { font-size: 13px; color: var(--ink-faint); margin-bottom: 12px; }
+.log-row {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 12px; padding: 10px 14px;
+  background: var(--surface); border: 1px solid var(--line-soft);
+  border-radius: 9px; margin-bottom: 7px; font-size: 13.5px;
+}
+.log-row .where { color: var(--ink); font-weight: 500; }
+.log-row .when { color: var(--ink-faint); font-size: 12.5px; }
+.log-row .pct {
+  font-family: "DM Mono", monospace; font-weight: 500;
+  padding: 3px 9px; border-radius: 6px;
+}
+.pct.hi { background: var(--correct-bg); color: var(--correct); }
+.pct.mid { background: var(--accent-soft); color: var(--accent-deep); }
+.pct.lo { background: var(--wrong-bg); color: var(--wrong); }
+.log-empty { font-size: 13.5px; color: var(--ink-faint); font-style: italic; }
+.log-clear {
+  font-size: 12.5px; color: var(--ink-faint); background: none;
+  border: none; cursor: pointer; text-decoration: underline; padding: 0;
+  margin-top: 6px;
+}
+
+/* ----------------------------- formulas ----------------------------- */
+.formula-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 16px; margin-top: 4px;
+}
+.formula-card {
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px 22px;
+}
+.formula-card h3 {
+  font-family: "DM Serif Display", serif;
+  font-size: 18px; font-weight: 400; color: var(--accent-deep);
+  margin-bottom: 12px;
+}
+.formula-row {
+  padding: 9px 0; border-top: 1px solid var(--line-soft);
+}
+.formula-row:first-of-type { border-top: none; }
+.formula-row .eq {
+  overflow-x: auto; overflow-y: hidden; padding: 2px 0;
+}
+.formula-row .use {
+  font-size: 12.5px; color: var(--ink-soft); margin-top: 3px;
+}
+
+/* ----------------------------- footer ----------------------------- */
+.site-footer {
+  max-width: 940px; margin: 0 auto;
+  padding: 26px 28px 46px;
+  border-top: 1px solid var(--line-soft);
+}
+.site-footer p {
+  font-size: 12.5px; color: var(--ink-faint); max-width: 640px;
+}
+
+/* ----------------------------- responsive ----------------------------- */
+@media (max-width: 680px) {
+  .site-header { padding: 28px 18px 10px; }
+  main { padding: 18px 18px 50px; }
+  .formula-grid { grid-template-columns: 1fr; }
+  .tab { font-size: 13px; padding: 9px 8px; }
+  .output { padding: 22px 20px; }
+  .topic-entry { flex-direction: column; }
+  .header-meta { display: none; }
+}
