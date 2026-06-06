@@ -28,7 +28,7 @@ problem worked step by step, and unlimited practice quizzes
 ## Tech
 
 - Backend: Python + Flask
-- AI: Anthropic Claude API (`anthropic` Python SDK)
+- AI: Anthropic Claude API (anthropic Python SDK)
 - Frontend: vanilla HTML / CSS / JavaScript
 - Math rendering: KaTeX  -  Markdown: marked.js
 - The API key lives only in the Flask backend, so it is never exposed to the
