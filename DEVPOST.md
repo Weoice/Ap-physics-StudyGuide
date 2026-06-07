@@ -1,24 +1,19 @@
 # Quanta — DSH Hacks V1 Submission
 
-**Theme:** AI × STEM Education
-**Category:** Web application / AI-driven learning tool
-
 ## Inspiration
 
 AP Physics is one of the hardest exams a high school student can take. Before the
-2025 redesign, AP Physics 1 had one of the lowest pass rates of any AP exam —
-under half of students passed. The subject is unforgiving: it rewards deep
-conceptual reasoning, not memorization, and most students do not have access to a
-tutor who can explain a concept three different ways or work through a problem with
-them at 11 p.m. the night before a test.
-
-Quanta exists to give every AP Physics student that tutor.
+2025 redesign, AP Physics 1 had one of the lowest pass rates of any AP exam,
+under half of the students passed. I myself have taken these classes as a high schooler
+and stuggled a lot. Throughout my jounrey, I tried to find a tool that could help
+me with these topics, but I unfortunatly never really found any. That is why, I made
+my own AP Physics Study tool. Quanta.
+Quanta exists to give every AP Physics student a tutor.
 
 ## What it does
 
-Quanta covers all four AP Physics courses — Physics 1, Physics 2, Physics C:
-Mechanics, and Physics C: E&M — aligned to the 2024–25 revised frameworks. It has
-four tools:
+Quanta covers all four AP Physics courses - Physics 1, Physics 2, Physics C:
+Mechanics, and Physics C: E&M, all up to date with the 2025-2026 course framework
 
 1. **Learn** — deep, exam-focused explanations of any topic, structured into
    intuition, key equations, a derivation/deeper dive, a worked example, common
@@ -34,11 +29,11 @@ four tools:
 ## How we built it
 
 - **Backend:** Python + Flask, with four JSON API endpoints (`/explain`,
-  `/solve`, `/quiz`, `/grade`).
+  solve, quiz, grade.
 - **AI:** the Anthropic Claude API. Each endpoint uses a carefully engineered
   prompt with a shared physics-tutor system prompt. The quiz endpoint asks the
   model for strict JSON and parses it into an interactive UI.
-- **Frontend:** vanilla HTML/CSS/JS — no framework — with KaTeX for real
+- **Frontend:** vanilla HTML/CSS/JS - no framework - with KaTeX for real
   equation rendering and marked.js for formatting.
 - **Curriculum:** the unit structure and formula reference are stored as data in
   the backend, verified against the College Board's 2024–25 revised frameworks.
@@ -51,8 +46,6 @@ four tools:
 - **Structured AI output:** the quiz feature prompts for and parses strict JSON,
   with fence-tolerant extraction, turning a language model into a reliable
   question generator.
-- **Secure architecture:** the API key stays server-side in Flask, never reaching
-  the browser — which also sidesteps CORS entirely.
 
 ## Real-world impact
 
