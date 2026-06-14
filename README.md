@@ -1,4 +1,4 @@
-# Quanta — AP Physics Study Companion
+# Quanta - AP Physics Study Companion
 
 An AI-powered study tool for AP Physics 1, AP Physics 2, AP Physics C: Mechanics,
 and AP Physics C: Electricity & Magnetism
