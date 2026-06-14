@@ -1,4 +1,4 @@
-# Quanta — DSH Hacks V1 Submission
+# Quanta - DSH Hacks V1 Submission
 
 ## Inspiration
 
@@ -15,28 +15,25 @@ Quanta exists to give every AP Physics student a tutor.
 Quanta covers all four AP Physics courses - Physics 1, Physics 2, Physics C:
 Mechanics, and Physics C: E&M, all up to date with the 2025-2026 course framework
 
-1. **Learn** — deep, exam-focused explanations of any topic, structured into
+1. **Learn** - deep, exam-focused explanations of any topic, structured into
    intuition, key equations, a derivation/deeper dive, a worked example, common
    mistakes, and exam tips.
-2. **Solve** — a problem tutor that takes any physics problem and returns a full
-   worked solution that teaches the *method*: strategy, symbolic-then-numeric
-   steps, a sanity check, and pitfalls.
-3. **Quiz** — unlimited AP-style practice questions for any unit or a mixed
+2. **Solve** - a problem tutor that takes any physics problem and returns a full
+   worked solution that teaches the method
+3. **Quiz** - unlimited AP-style practice questions for any unit or a mixed
    review, at four difficulty levels, with instant explanations, an optional
-   AI-graded free-response question, and a study log that tracks progress.
-4. **Formulas** — a clean equation reference for every course.
+   AI-graded free-response question and a study log that tracks progress.
+4. **Formulas** - an equation reference for every course.
 
 ## How we built it
 
-- **Backend:** Python + Flask, with four JSON API endpoints (`/explain`,
+- **Backend:** Python + Flask, with four JSON API endpoints - explain,
   solve, quiz, grade.
 - **AI:** the Anthropic Claude API. Each endpoint uses a carefully engineered
   prompt with a shared physics-tutor system prompt. The quiz endpoint asks the
   model for strict JSON and parses it into an interactive UI.
 - **Frontend:** vanilla HTML/CSS/JS - no framework - with KaTeX for real
   equation rendering and marked.js for formatting.
-- **Curriculum:** the unit structure and formula reference are stored as data in
-  the backend, verified against the College Board's 2024–25 revised frameworks.
 
 ## Technical depth
 
@@ -68,3 +65,4 @@ serves students who cannot afford a private tutor.
 - Per-topic mastery tracking and spaced-repetition review.
 - Diagram and free-body-diagram generation.
 - Photo upload so students can solve a problem straight from their worksheet.
+- Publish the site so more people can use it
